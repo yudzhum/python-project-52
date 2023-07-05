@@ -1,0 +1,37 @@
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
+*.sqlite3
+media
+
+# Distribution / packaging 
+.Python build/ 
+develop-eggs/ 
+dist/ 
+downloads/ 
+eggs/ 
+.eggs/ 
+lib/ 
+lib64/ 
+parts/ 
+sdist/ 
+var/ 
+wheels/ 
+*.egg-info/ 
+.installed.cfg 
+*.egg 
+*.manifest 
+*.spec
+
+# enviroment
+.venv/
+.env
+
+# tests
+.coverage
+coverage.xml
+.pytest_cache/
+
+htmlcov/
