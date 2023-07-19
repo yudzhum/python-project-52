@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+
+{% block content %}
+<h1 class="my-4">Users</h1>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Имя пользователя</th>
+        <th>Полное имя</th>
+        <th>Дата создания</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for user in user_list %}
+        <tr>
+          <td>{{ user.pk }}</td>
+          <td>{{ user }}</td>
+          <td>{{ user.first_name }} {{ user.last_name }}</td>
+          <td>{{ user.date_joined }}</td>
+          <td>
+            <a href="{% url 'users:update_user' pk=user.pk %}">Изменить</a>
+            <br>
+            <a href="{% url 'users:delete_user' pk=user.pk %}">Удалить</a>
+          </td>
+        </tr>
+        {% endfor %}     
+    </tbody>
+  </table>
+  {% endblock %}
