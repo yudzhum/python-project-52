@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+from django.contrib.messages import constants as messages
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -121,6 +121,13 @@ AUTH_PASSWORD_VALIDATORS = [
     #   'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     #},
 ]
+
+# Django's default message tags do not match perfectly with Bootstrap's contextual classes.
+# Bootstrap uses the contextual class danger for the color red.
+# Thats override error tag.
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
 
 
 # Internationalization
