@@ -25,7 +25,7 @@ class CustomLoginRequiredMixin(AccessMixin):
         return super().dispatch(request, *args, **kwargs)
 
 
-class PermCheckMixin(AccessMixin):
+class CustomUserPassesTestMixin(AccessMixin):
     """
     Deny a request with a permission error if user not themself.
     """

@@ -3,14 +3,14 @@
 {% load i18n %}
 
 {% block content %}
-<h1 class="my-4">Users</h1>
+<h1 class="my-4">{% translate 'Users' %}</h1>
 <table class="table table-striped">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Имя пользователя</th>
-        <th>Полное имя</th>
-        <th>Дата создания</th>
+        <th>{% translate 'ID' %}</th>
+        <th>{% translate 'Username' %}</th>
+        <th>{% translate 'Full name' %}</th>
+        <th>{% translate 'Date of creation' %}</th>
         <th></th>
       </tr>
     </thead>
@@ -22,12 +22,12 @@
           <td>{{ user.first_name }} {{ user.last_name }}</td>
           <td>{{ user.date_joined }}</td>
           <td>
-            <a href="{% url 'users:update_user' pk=user.pk %}">Изменить</a>
+            <a href="{% url 'users:update_user' pk=user.pk %}">{% translate 'Edit' %}</a>
             <br>
-            <a href="{% url 'users:delete_user' pk=user.pk %}">Удалить</a>
+            <a href="{% url 'users:delete_user' pk=user.pk %}">{% translate 'Delete' %}</a>
           </td>
         </tr>
-        {% endfor %}     
+        {% endfor %}
     </tbody>
   </table>
   {% endblock %}

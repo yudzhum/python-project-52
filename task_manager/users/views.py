@@ -1,10 +1,11 @@
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 from task_manager.users.forms import RegistrationForm, UserUpdateForm
 from task_manager.users.models import CustomUser
-from task_manager.users.mixins import CustomLoginRequiredMixin, PermCheckMixin
+from task_manager.users.mixins import CustomLoginRequiredMixin, CustomUserPassesTestMixin
 
 
 class UsersList(ListView):
@@ -22,35 +23,42 @@ class RegisterUser(SuccessMessageMixin, CreateView):
     template_name = 'users/register.html'
     form_class = RegistrationForm
     success_url = reverse_lazy('login')
-    success_message = 'User successfully registered!'
+    success_message = _('User successfully registered!')
 
   
-class UpdateUser(CustomLoginRequiredMixin, PermCheckMixin, SuccessMessageMixin, UpdateView):
+class UpdateUser(CustomLoginRequiredMixin,
+                 CustomUserPassesTestMixin,
+                 SuccessMessageMixin,
+                 UpdateView):
     """Change user"""
     login_url = '/login/'
-    login_required_message = 'You are not authorized! Please, log in.'
+    login_required_message = _('You are not authorized! Please, log in.')
 
     model = CustomUser
     template_name = 'users/update_user.html'
     form_class = UserUpdateForm
     pk_url_kwarg = 'pk'
     success_url = reverse_lazy('users:users')
-    success_message = 'You profile been updated!'
+    success_message = _('You profile been updated!')
 
     my_perm_denied_url_string = 'users:users'
-    permission_denied_message = "You have no permission to change other user"
+    permission_denied_message = _("You have no permission to change other user")
 
 
-class DeleteUser(CustomLoginRequiredMixin, PermCheckMixin, SuccessMessageMixin, DeleteView):
+class DeleteUser(CustomLoginRequiredMixin,
+                 CustomUserPassesTestMixin,
+                 SuccessMessageMixin,
+                 DeleteView):
     """Delete user"""
     login_url = '/login/'
-    login_required_message = 'You are not authorized! Please, log in.'
+    login_required_message = _('You are not authorized! Please, log in.')
+
     model = CustomUser
     template_name = 'users/delete_user.html'
     pk_url_kwarg = 'pk'
     success_url = reverse_lazy('users:users')
-    success_message = 'User was deleted'
+    success_message = _('User was deleted')
 
     my_perm_denied_url_string = 'users:users'
-    permission_denied_message = "You cant delete other user."
+    permission_denied_message = _("You have no permission to change other user")
 

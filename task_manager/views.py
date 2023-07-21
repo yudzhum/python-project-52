@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 
 class IndexView(TemplateView):
@@ -14,7 +15,7 @@ class IndexView(TemplateView):
 class LoginUserView(SuccessMessageMixin, LoginView):
     template_name = 'login.html'
     form_class = AuthenticationForm
-    success_message = 'You have successfully logged in'
+    success_message = _('You have successfully logged in')
 
     def get_success_url(self):
         return reverse_lazy('home')
@@ -26,6 +27,6 @@ class LogoutUserView(LogoutView):
         success_url = reverse_lazy('home')
         messages.add_message(
         self.request, messages.SUCCESS,
-        'You have successfully logged out!'
+        _('You have successfully logged out!')
         )
         return success_url
