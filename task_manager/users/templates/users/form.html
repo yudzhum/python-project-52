@@ -3,9 +3,10 @@
 {% load i18n %}
 
 {% block content %}
+<h1>{{ title }}</h1>
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <input class="btn btn-primary" type="submit" value="Update">
+    {% bootstrap_button button_value button_type="submit" button_class="btn-primary" %}
 </form>
 {% endblock %}

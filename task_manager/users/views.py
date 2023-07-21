@@ -20,10 +20,14 @@ class UsersList(ListView):
 
 class RegisterUser(SuccessMessageMixin, CreateView):
     """Create new user"""
-    template_name = 'users/register.html'
+    template_name = 'users/form.html'
     form_class = RegistrationForm
     success_url = reverse_lazy('login')
     success_message = _('User successfully registered!')
+    extra_context = {
+        'title': _('Registration'),
+        'button_value': _('Registration')
+    }
 
   
 class UpdateUser(CustomLoginRequiredMixin,
@@ -35,11 +39,15 @@ class UpdateUser(CustomLoginRequiredMixin,
     login_required_message = _('You are not authorized! Please, log in.')
 
     model = CustomUser
-    template_name = 'users/update_user.html'
+    template_name = 'users/form.html'
     form_class = UserUpdateForm
     pk_url_kwarg = 'pk'
     success_url = reverse_lazy('users:users')
     success_message = _('You profile been updated!')
+    extra_context = {
+        'title': _('User update'),
+        'button_value': _('Update')
+    }
 
     my_perm_denied_url_string = 'users:users'
     permission_denied_message = _("You have no permission to change other user")
@@ -61,4 +69,3 @@ class DeleteUser(CustomLoginRequiredMixin,
 
     my_perm_denied_url_string = 'users:users'
     permission_denied_message = _("You have no permission to change other user")
-
