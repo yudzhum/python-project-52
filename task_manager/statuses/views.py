@@ -6,9 +6,10 @@ from django.utils.translation import gettext_lazy as _
 
 from task_manager.statuses.forms import StatusForm
 from task_manager.statuses.models import Status
+from task_manager.users.mixins import CustomLoginRequiredMixin
 
 
-class ShowStatuses(ListView):
+class ShowStatuses(CustomLoginRequiredMixin, ListView):
     """Show all statuses"""
     model = Status
     template_name = 'statuses/statuses_index.html'
@@ -19,8 +20,11 @@ class ShowStatuses(ListView):
         return Status.objects.all()
 
 
-class CreateStatus(SuccessMessageMixin, CreateView):
+class CreateStatus(CustomLoginRequiredMixin,
+                   SuccessMessageMixin,
+                   CreateView):
     """Create new status"""
+    model = Status
     template_name = 'form.html'
     form_class = StatusForm
     success_url = reverse_lazy('statuses:statuses')
@@ -31,8 +35,11 @@ class CreateStatus(SuccessMessageMixin, CreateView):
     }
 
 
-class UpdateStatus(SuccessMessageMixin, UpdateView):
+class UpdateStatus(CustomLoginRequiredMixin,
+                   SuccessMessageMixin,
+                   UpdateView):
     """Update status"""
+    model = Status
     template_name = 'form.html'
     form_class = StatusForm
     success_url = reverse_lazy('statuses:statuses')
@@ -43,8 +50,11 @@ class UpdateStatus(SuccessMessageMixin, UpdateView):
     }
 
 
-class DeleteStatus(SuccessMessageMixin, DeleteView):
+class DeleteStatus(CustomLoginRequiredMixin,
+                   SuccessMessageMixin,
+                   DeleteView):
     """Delete status"""
+    model = Status
     template_name = 'delete_confirmation_form.html'
     success_url = reverse_lazy('statuses:statuses')
     success_message = _('Status successfully deleted')
