@@ -29,12 +29,15 @@ class RegisterUser(SuccessMessageMixin, CreateView):
         'button_value': _('Registration')
     }
 
-  
+
 class UpdateUser(CustomLoginRequiredMixin,
                  CustomUserPassesTestMixin,
                  SuccessMessageMixin,
                  UpdateView):
-    """Change user"""
+    """
+    Change user.
+    User shoud be logged in and can update only themself.
+    """
     login_url = '/login/'
     login_required_message = _('You are not authorized! Please, log in.')
 
@@ -57,7 +60,10 @@ class DeleteUser(CustomLoginRequiredMixin,
                  CustomUserPassesTestMixin,
                  SuccessMessageMixin,
                  DeleteView):
-    """Delete user"""
+    """
+    Delete user.
+    User shoud be logged in and can delete only themself.
+    """
     login_url = '/login/'
     login_required_message = _('You are not authorized! Please, log in.')
 

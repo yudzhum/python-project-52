@@ -13,6 +13,7 @@ class IndexView(TemplateView):
 
 
 class LoginUserView(SuccessMessageMixin, LoginView):
+    """Login user"""
     template_name = 'login.html'
     form_class = AuthenticationForm
     success_message = _('You have successfully logged in')
@@ -22,11 +23,13 @@ class LoginUserView(SuccessMessageMixin, LoginView):
 
 
 class LogoutUserView(LogoutView):
-    
+    """Logout user"""
+
     def get_success_url(self):
         success_url = reverse_lazy('home')
         messages.add_message(
-        self.request, messages.SUCCESS,
-        _('You have successfully logged out!')
+            self.request,
+            messages.SUCCESS,
+            _('You have successfully logged out!')
         )
         return success_url
