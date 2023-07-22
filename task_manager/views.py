@@ -14,9 +14,13 @@ class IndexView(TemplateView):
 
 class LoginUserView(SuccessMessageMixin, LoginView):
     """Login user"""
-    template_name = 'login.html'
+    template_name = 'form.html'
     form_class = AuthenticationForm
     success_message = _('You have successfully logged in')
+    extra_context = {
+        'title': _('Login'),
+        'button_value': _('Login')
+    }
 
     def get_success_url(self):
         return reverse_lazy('home')
