@@ -16,9 +16,6 @@ class ShowStatuses(CustomLoginRequiredMixin, ListView):
     context_object_name = 'statuses'
     allow_empty = True
 
-    def get_queryset(self):
-        return Status.objects.all()
-
 
 class CreateStatus(CustomLoginRequiredMixin,
                    SuccessMessageMixin,

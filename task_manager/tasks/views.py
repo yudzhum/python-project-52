@@ -16,9 +16,6 @@ class TasksList(CustomLoginRequiredMixin, ListView):
     context_object_name = 'taskslist'
     allow_empty = True
 
-    def get_queryset(self):
-        return Task.objects.all()
-
 
 class ShowTask(CustomLoginRequiredMixin, DetailView):
     """Show tasks detail"""
@@ -77,6 +74,7 @@ class DeleteTask(CustomLoginRequiredMixin,
     my_perm_denied_url_string = 'tasks:tasks'
     permission_denied_message = _('Only author can delete task')
 
+    # Check if user is author of task
     def test_func(self):
         task = self.get_object()
         return task.author == self.request.user.pk
