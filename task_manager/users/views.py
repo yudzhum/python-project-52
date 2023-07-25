@@ -62,7 +62,6 @@ class UpdateUser(CustomLoginRequiredMixin,
 
 class DeleteUser(CustomLoginRequiredMixin,
                  CustomUserPassesTestMixin,
-                 SuccessMessageMixin,
                  DeleteView):
     """
     Delete user.
@@ -92,5 +91,11 @@ class DeleteUser(CustomLoginRequiredMixin,
             self.request,
             messages.ERROR,
             self.deletion_denied_message
+        )
+        else:
+            messages.add_message(
+            self.request,
+            messages.SUCCESS,
+            self.success_message
         )
         return HttpResponseRedirect(success_url)

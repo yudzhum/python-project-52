@@ -50,7 +50,6 @@ class UpdateLabel(CustomLoginRequiredMixin,
 
 
 class DeleteLabel(CustomLoginRequiredMixin,
-                   SuccessMessageMixin,
                    DeleteView):
     """Delete status"""
     model = Label
@@ -72,5 +71,11 @@ class DeleteLabel(CustomLoginRequiredMixin,
             self.request,
             messages.ERROR,
             self.deletion_denied_message
+        )
+        else:
+            messages.add_message(
+            self.request,
+            messages.SUCCESS,
+            self.success_message
         )
         return HttpResponseRedirect(success_url)
