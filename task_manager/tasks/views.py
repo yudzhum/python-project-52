@@ -25,8 +25,8 @@ class ShowTask(CustomLoginRequiredMixin, DetailView):
 
 
 class CreateTask(CustomLoginRequiredMixin,
-                   SuccessMessageMixin,
-                   CreateView):
+                 SuccessMessageMixin,
+                 CreateView):
     """Create new task"""
     model = Task
     template_name = 'form.html'
@@ -77,4 +77,4 @@ class DeleteTask(CustomLoginRequiredMixin,
     # Check if user is author of task
     def test_func(self):
         task = self.get_object()
-        return task.author == self.request.user.pk
+        return task.author.pk == self.request.user.pk

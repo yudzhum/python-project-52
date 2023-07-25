@@ -25,7 +25,7 @@
           <td><a href="{% url 'tasks:show_task' pk=task.pk %}">{{ task.name }}</a></td>
           <td>{{ task.status }}</td>
           <td>{{ task.author }}</td>
-          <td>{{ task.executor }}</td>
+          <td>{% firstof task.executor " " %}</td>
           <td>{{ task.created_at }}</td>
           <td>
             <a href="{% url 'tasks:update_task' pk=task.pk %}">{% translate 'Edit' %}</a>
