@@ -7,6 +7,10 @@ from task_manager.users.forms import RegistrationForm, UserUpdateForm
 from task_manager.users.models import CustomUser
 from task_manager.users.mixins import CustomLoginRequiredMixin, CustomUserPassesTestMixin
 
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.db.models import ProtectedError
+
 
 class UsersList(ListView):
     """Show users on page users"""
@@ -75,3 +79,18 @@ class DeleteUser(CustomLoginRequiredMixin,
 
     my_perm_denied_url_string = 'users:users'
     permission_denied_message = _("You have no permission to change other user")
+
+    deletion_denied_message = 'Cannot delete user because it is in use'
+
+    # Impossible to delete user if user have linked task
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+        try:
+            self.object.delete()
+        except ProtectedError:
+            messages.add_message(
+            self.request,
+            messages.ERROR,
+            self.deletion_denied_message
+        )
+        return HttpResponseRedirect(success_url)
