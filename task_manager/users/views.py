@@ -80,7 +80,7 @@ class DeleteUser(CustomLoginRequiredMixin,
     my_perm_denied_url_string = 'users:users'
     permission_denied_message = _("You have no permission to change other user")
 
-    deletion_denied_message = 'Cannot delete user because it is in use'
+    deletion_denied_message = _('Cannot delete user because it is in use')
 
     # Impossible to delete user if user have linked task
     def form_valid(self, form):

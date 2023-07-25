@@ -1,8 +1,10 @@
-from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.db.models import ProtectedError
 
 from task_manager.labels.forms import LabelForm
 from task_manager.labels.models import Label
@@ -58,3 +60,17 @@ class DeleteLabel(CustomLoginRequiredMixin,
     extra_context = {
         'title': _('Delete label'),
     }
+    deletion_denied_message = _('Cant delete label because it is in use')
+
+    # Can't delete label because it's in use
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+        try:
+            self.object.delete()
+        except ProtectedError:
+            messages.add_message(
+            self.request,
+            messages.ERROR,
+            self.deletion_denied_message
+        )
+        return HttpResponseRedirect(success_url)
