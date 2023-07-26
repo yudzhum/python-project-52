@@ -1,3 +1,9 @@
 from django.contrib import admin
+from task_manager.labels.models import Label
 
-# Register your models here.
+
+class LabelAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Label, LabelAdmin)
