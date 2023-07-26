@@ -1,0 +1,36 @@
+[
+    {
+    "model": "users.customuser", 
+    "pk": 1, 
+    "fields": {
+        "username": "yudzhum", 
+        "first_name": "1", 
+        "last_name": "4", 
+        "date_joined": "2023-07-25T14:18:32.977Z"
+    }
+    },
+    {
+    "model": "users.customuser", 
+    "pk": 2, 
+    "fields": {
+        "username": "sonik", 
+        "first_name": "super", 
+        "last_name": "sonik", 
+        "date_joined": "2021-01-11T18:33:46.499Z"
+    }
+    },
+    {
+    "model": "users.customuser", 
+    "pk": 3, 
+    "fields": {
+        "username": "catco", 
+        "first_name": "kara", 
+        "last_name": "denvers",
+        "is_active": true,
+        "date_joined": "2021-03-11T18:33:46.499Z"
+    }
+    }
+]
+
+
+
