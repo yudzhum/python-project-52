@@ -18,6 +18,9 @@ class TasksList(CustomLoginRequiredMixin, FilterView, ListView):
     context_object_name = 'taskslist'
     allow_empty = True
     filterset_class = TaskFilter
+    extra_context = {
+        'button_value': _('Show')
+    }
 
 
 class ShowTask(CustomLoginRequiredMixin, DetailView):
