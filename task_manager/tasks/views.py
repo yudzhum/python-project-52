@@ -2,19 +2,22 @@ from django.views.generic import CreateView, ListView, UpdateView, DeleteView, D
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from django_filters.views import FilterView
 
 from task_manager.tasks.models import Task
 from task_manager.tasks.forms import TaskForm
+from task_manager.tasks.filters import TaskFilter
 from task_manager.users.mixins import CustomLoginRequiredMixin, CustomUserPassesTestMixin
 from task_manager.users.models import CustomUser
 
 
-class TasksList(CustomLoginRequiredMixin, ListView):
+class TasksList(CustomLoginRequiredMixin, FilterView, ListView):
     """Show all tasks"""
     model = Task
     template_name = 'tasks/tasks_list.html'
     context_object_name = 'taskslist'
     allow_empty = True
+    filterset_class = TaskFilter
 
 
 class ShowTask(CustomLoginRequiredMixin, DetailView):

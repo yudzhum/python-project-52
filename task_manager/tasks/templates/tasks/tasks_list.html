@@ -6,6 +6,16 @@
 <h1 class="my-4">{% translate 'Tasks' %}</h1>
 <a class="nav-link" href="{% url 'tasks:create_task' %}">{% translate 'Create task' %}</a>
 
+<div class="card mb-3">
+  <div class="card-body bg-light">
+    <form class="form-inline center" method="get">
+      {% bootstrap_form filter.form %}
+      {% bootstrap_button button_value button_type="submit" button_class="btn-primary" %}
+
+    </form>
+  </div>
+</div>
+
 <table class="table table-striped">
     <thead>
       <tr>
