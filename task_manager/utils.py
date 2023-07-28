@@ -2,9 +2,9 @@ import json
 import os
 
 
-def get_fixture_path(app, file_name):
+def get_fixture_path(file_name):
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    return os.path.join(current_dir, app, 'fixtures', file_name)
+    return os.path.join(current_dir, 'fixtures', file_name)
 
 
 def read(file_path):
@@ -13,10 +13,10 @@ def read(file_path):
     return content
 
 
-def get_fixture_data(app, file_name):
-    content = read(get_fixture_path(app, file_name))
+def get_fixture_data(file_name):
+    content = read(get_fixture_path(file_name))
     return json.loads(content)
 
 
-def get_test_data(app, file_name):
-    return get_fixture_data(app, file_name)
+def get_test_data(file_name):
+    return get_fixture_data(file_name)

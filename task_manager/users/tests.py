@@ -16,7 +16,7 @@ class UsersTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.test_data = get_test_data(app_name, 'test_data.json')
+        cls.test_data = get_test_data('test_data_for_users.json')
 
     def assertCustomUser(self, user, user_data):
         self.assertEqual(user.username, user_data['username'])
