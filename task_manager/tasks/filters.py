@@ -1,5 +1,6 @@
-from django_filters import FilterSet, ModelChoiceFilter
+from django_filters import FilterSet, ModelChoiceFilter, BooleanFilter
 from django.utils.translation import gettext_lazy as _
+from django.forms import CheckboxInput
 
 from task_manager.tasks.models import Task
 from task_manager.statuses.models import Status
@@ -11,8 +12,19 @@ class TaskFilter(FilterSet):
     status = ModelChoiceFilter(queryset=Status.objects.all())
     executor = ModelChoiceFilter(queryset=CustomUser.objects.all())
     labels = ModelChoiceFilter(queryset=Label.objects.all(), label=_('Label'))
+    self_tasks = BooleanFilter(
+        field_name='self_tasks', 
+        method='author_of_tasks',
+        label=_('Own tasks only'),
+        widget=CheckboxInput
+    )
 
     class Meta:
         model = Task
         fields = ['status', 'executor', 'labels']
 
+    def author_of_tasks(self, queryset, name, value):
+        if value:
+            user = self.request.user
+            queryset = queryset.filter(author=user)
+        return queryset
