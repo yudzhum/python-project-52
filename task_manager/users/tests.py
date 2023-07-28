@@ -6,7 +6,6 @@ from django.utils.translation import gettext_lazy as _
 from task_manager.utils import get_test_data
 from task_manager.users.models import CustomUser
 
-app_name = 'users'
 
 # Do something with magic numbers in pk
 class UsersTest(TestCase):

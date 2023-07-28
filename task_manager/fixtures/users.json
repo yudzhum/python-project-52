@@ -23,12 +23,12 @@
         "fields": {
             "password": "pbkdf2_sha256$600000$hFcw3bZjZtyAq40Ms3EvJN$pLRemlwEaGXzej5DiKLkLMLEDcfLFzOT2leXCa+w8b0=", 
             "last_login": "2023-07-26T15:23:08.588Z", 
-            "is_superuser": true, 
+            "is_superuser": false, 
             "username": "yu", 
             "first_name": "", 
             "last_name": "", 
             "email": "yu@mailbox.ru", 
-            "is_staff": true, 
+            "is_staff": false, 
             "is_active": true, 
             "date_joined": "2023-07-26T15:22:34.869Z", 
             "groups": [], "user_permissions": []
