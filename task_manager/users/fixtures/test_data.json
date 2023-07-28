@@ -6,17 +6,10 @@
         "password1": 1234,
         "password2": 1234 
     },
-    "user_before_update": {
-        "first_name": "kara",
-        "last_name": "denvers",
-        "username": "catco",
-        "password1": 1234,
-        "password2": 1234 
-    },
     "user_after_update": {
         "first_name": "kara",
         "last_name": "zor-ei",
-        "username": "super",
+        "username": "supergirl",
         "password1": 1234,
         "password2": 1234 
     }

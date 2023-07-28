@@ -1,16 +1,18 @@
-from django.test import TestCase, RequestFactory
+from django.test import TestCase
 from django.urls import reverse
-from django.urls import reverse_lazy
+from django.core.exceptions import ObjectDoesNotExist
+from django.utils.translation import gettext_lazy as _
 
 from task_manager.utils import get_test_data
 from task_manager.users.models import CustomUser
 
 app_name = 'users'
 
-
+# Do something with magic numbers in pk
 class UsersTest(TestCase):
-    """Test users index page and registration"""
+    """Test users CRUD"""
     fixtures = ['users.json']
+
 
     @classmethod
     def setUpTestData(cls):
@@ -31,7 +33,7 @@ class UsersTest(TestCase):
             users,
             ordered=False
         )
- 
+
     def test_register_page(self):
         response = self.client.get(reverse('users:register'))
         self.assertEqual(response.status_code, 200)
@@ -44,55 +46,62 @@ class UsersTest(TestCase):
         created_user = CustomUser.objects.get(username=new_user['username'])
         self.assertCustomUser(created_user, new_user)
 
-
-class UpdateAndDeleteUserTest(TestCase):
-    """
-    Test updation and delete of user.
-    Both requeire login.
-    Only owner can delete user account.
-    """
-
-    @classmethod
-    def setUp(cls):
-        test_user1 = CustomUser.objects.create(
-            username='testuser1',
-            first_name='kara',
-            last_name='denvers',
-            password='1234'
-        )
-        test_user1.save()
-
-
-    def test_users_index_page(self):
-        response = self.client.get(reverse('users:users'))
-        self.assertEqual(response.status_code, 200)
-
-        users = CustomUser.objects.count()
-        assert users == 1
-
-    
-    def test_redirect_if_not_logged_in(self):
-        user = CustomUser.objects.get(username='catco')
+    def test_update_page_redirect_if_not_logged_in(self):
+        user = CustomUser.objects.get(pk=3)
         response = self.client.get(reverse('users:update_user', kwargs={'pk': user.pk }))
-        # Manually check redirect (Can't use assertRedirect, because the redirect URL is unpredictable)
-        self.assertEqual(response.status_code, 302)
+        # Manually check redirect
+        self.assertEqual(response.status_code, 302)       
         self.assertTrue(response.url.startswith('/login/'))
 
+    def test_update(self):
+        # Log in user
+        user = CustomUser.objects.get(pk=3)   
+        self.client.force_login(user)
+        # GET page
+        response = self.client.get(reverse('users:update_user', kwargs={'pk': user.pk }))
+        self.assertEqual(response.status_code, 200)
+        # update user
+        new_data = self.test_data['user_after_update']
+        response = self.client.post(
+            reverse('users:update_user', kwargs={'pk': user.pk }),
+            new_data
+        )
+        updated_user = CustomUser.objects.get(pk=user.pk)
+        self.assertRedirects(response, reverse('users:users'))
+        self.assertCustomUser(updated_user, new_data)
 
-    def test_update_page(self):
-        login = self.client.login(username='testuser1', password='1234')
-        self.assertTrue(login) 
+    def test_update_without_permission(self):
+        # Log in user
+        user = CustomUser.objects.get(pk=3)
+        self.client.force_login(user)
+        # Try GET update page of different user
+        response = self.client.get(reverse('users:update_user', kwargs={'pk': 1 }))
+        self.assertEqual(response.status_code, 302)
 
+    def test_delete_page_redirect_if_not_logged_in(self):
+        user = CustomUser.objects.get(pk=4)
+        response = self.client.get(reverse('users:delete_user', kwargs={'pk': user.pk }))
+        # Manually check redirect
+        self.assertEqual(response.status_code, 302)       
+        self.assertTrue(response.url.startswith('/login/'))
 
+    def test_delete_user(self):
+        # Log in user
+        user = CustomUser.objects.get(pk=4)
+        self.client.force_login(user)
+        # GET page
+        response = self.client.get(reverse('users:delete_user', kwargs={'pk': user.pk }))
+        self.assertEqual(response.status_code, 200)
+        # delete user
+        response = self.client.post(reverse('users:delete_user', kwargs={'pk': user.pk }))
+        self.assertRedirects(response, reverse('users:users'))
+        with self.assertRaises(ObjectDoesNotExist):
+            CustomUser.objects.get(pk=4)
 
-    # def test_update(self):
-    #     pre_update_data = self.test_data['user_before_update']
-    #     new_data = self.test_data['user_after_update']
-    #     user_pre_update = CustomUser.objects.get(username=pre_update_data['username'])
-    #     response = self.client.post(reverse(
-    #         'users:update_user', args=[user_pre_update.pk]),
-    #         new_data
-    #     )
-    #     self.assertRedirects(response, reverse('users:users'))
-    #     updated_user = CustomUser.objects.get(pk=user_pre_update.pk)
-    #     self.assertCustomUser(updated_user, new_data)
+    def test_delete_without_permission(self):
+        # Log in user
+        user = CustomUser.objects.get(pk=3)
+        self.client.force_login(user)
+        # Try GET page of different user
+        response = self.client.get(reverse('users:update_user', kwargs={'pk': 1 }))
+        self.assertEqual(response.status_code, 302)
