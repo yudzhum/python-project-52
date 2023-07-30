@@ -1,0 +1,4 @@
+[
+    {"model": "tasks.tasklabelrelationmodel", "pk": 1, "fields": {"task": 1, "label": 1}}, 
+    {"model": "tasks.tasklabelrelationmodel", "pk": 2, "fields": {"task": 2, "label": 1}}
+]

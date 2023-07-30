@@ -9,9 +9,9 @@ from task_manager.labels.models import Label
 
 
 class TaskFilter(FilterSet):
-    status = ModelChoiceFilter(queryset=Status.objects.all())
-    executor = ModelChoiceFilter(queryset=CustomUser.objects.all())
-    labels = ModelChoiceFilter(queryset=Label.objects.all(), label=_('Label'))
+    status = ModelChoiceFilter(queryset=Status.objects.all(), label=_('Status'))
+    executor = ModelChoiceFilter(queryset=CustomUser.objects.all(), label=_('Executor'))
+    labels = ModelChoiceFilter(queryset=Label.objects.all(), label=_('Labels'))
     self_tasks = BooleanFilter(
         field_name='self_tasks', 
         method='author_of_tasks',
