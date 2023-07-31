@@ -30,5 +30,6 @@
             "name": "every day", 
             "created_at": "2023-07-28T16:12:41.150Z"
         }
-    }
+    },
+    {"model": "tasks.tasklabelrelationmodel", "pk": 1, "fields": {"task": 1, "label": 2}} 
 ]
