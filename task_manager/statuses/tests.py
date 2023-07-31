@@ -64,7 +64,6 @@ class StatusesTest(TestCase):
         new_status = Status.objects.last()
         self.assertEqual(new_status.name, self.new_data['name'])
 
-
     def test_update_status(self):
         # GET page
         response = self.client.get(reverse('statuses:update_status', kwargs={'pk': 1 }))
@@ -73,7 +72,6 @@ class StatusesTest(TestCase):
         response = self.client.post(reverse('statuses:update_status', kwargs={'pk': 1 }), self.update_data)
         updated_status = Status.objects.get(pk=1)
         self.assertEqual(updated_status.name, self.update_data['name'])
-
 
     def test_delete_status(self):
         # GET page
