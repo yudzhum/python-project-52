@@ -1,7 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
-from django.utils.translation import gettext_lazy as _
 
 from task_manager.utils import get_test_data
 from task_manager.users.models import CustomUser
@@ -11,7 +10,6 @@ from task_manager.users.models import CustomUser
 class UsersTest(TestCase):
     """Test users CRUD"""
     fixtures = ['users.json']
-
 
     @classmethod
     def setUpTestData(cls):
@@ -47,22 +45,22 @@ class UsersTest(TestCase):
 
     def test_update_page_redirect_if_not_logged_in(self):
         user = CustomUser.objects.get(pk=3)
-        response = self.client.get(reverse('users:update_user', kwargs={'pk': user.pk }))
+        response = self.client.get(reverse('users:update_user', kwargs={'pk': user.pk}))
         # Manually check redirect
-        self.assertEqual(response.status_code, 302)       
+        self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.startswith('/login/'))
 
     def test_update(self):
         # Log in user
-        user = CustomUser.objects.get(pk=3)   
+        user = CustomUser.objects.get(pk=3)
         self.client.force_login(user)
         # GET page
-        response = self.client.get(reverse('users:update_user', kwargs={'pk': user.pk }))
+        response = self.client.get(reverse('users:update_user', kwargs={'pk': user.pk}))
         self.assertEqual(response.status_code, 200)
         # update user
         new_data = self.test_data['user_after_update']
         response = self.client.post(
-            reverse('users:update_user', kwargs={'pk': user.pk }),
+            reverse('users:update_user', kwargs={'pk': user.pk}),
             new_data
         )
         updated_user = CustomUser.objects.get(pk=user.pk)
@@ -74,14 +72,14 @@ class UsersTest(TestCase):
         user = CustomUser.objects.get(pk=3)
         self.client.force_login(user)
         # Try GET update page of different user
-        response = self.client.get(reverse('users:update_user', kwargs={'pk': 1 }))
+        response = self.client.get(reverse('users:update_user', kwargs={'pk': 1}))
         self.assertEqual(response.status_code, 302)
 
     def test_delete_page_redirect_if_not_logged_in(self):
         user = CustomUser.objects.get(pk=4)
-        response = self.client.get(reverse('users:delete_user', kwargs={'pk': user.pk }))
+        response = self.client.get(reverse('users:delete_user', kwargs={'pk': user.pk}))
         # Manually check redirect
-        self.assertEqual(response.status_code, 302)       
+        self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.startswith('/login/'))
 
     def test_delete_user(self):
@@ -89,10 +87,10 @@ class UsersTest(TestCase):
         user = CustomUser.objects.get(pk=4)
         self.client.force_login(user)
         # GET page
-        response = self.client.get(reverse('users:delete_user', kwargs={'pk': user.pk }))
+        response = self.client.get(reverse('users:delete_user', kwargs={'pk': user.pk}))
         self.assertEqual(response.status_code, 200)
         # delete user
-        response = self.client.post(reverse('users:delete_user', kwargs={'pk': user.pk }))
+        response = self.client.post(reverse('users:delete_user', kwargs={'pk': user.pk}))
         self.assertRedirects(response, reverse('users:users'))
         with self.assertRaises(ObjectDoesNotExist):
             CustomUser.objects.get(pk=4)
@@ -102,5 +100,5 @@ class UsersTest(TestCase):
         user = CustomUser.objects.get(pk=3)
         self.client.force_login(user)
         # Try GET page of different user
-        response = self.client.get(reverse('users:update_user', kwargs={'pk': 1 }))
+        response = self.client.get(reverse('users:update_user', kwargs={'pk': 1}))
         self.assertEqual(response.status_code, 302)

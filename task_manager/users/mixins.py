@@ -36,8 +36,8 @@ class CustomLoginRequiredMixin(AccessMixin):
 class CustomUserPassesTestMixin(AccessMixin):
     """
     Deny a request and show error message if user not themself.
-    Differs from the basic one in django, by possibility 
-    to add a message and link to redirect, 
+    Differs from the basic one in django, by possibility
+    to add a message and link to redirect,
     the default one shows a 403 error.
     """
     my_perm_denied_url_string = 'users:users'

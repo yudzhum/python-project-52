@@ -13,29 +13,28 @@ class TaskUrlsTest(TestCase):
 
     def test_index_page_without_login(self):
         response = self.client.get(reverse('tasks:tasks'))
-        self.assertEqual(response.status_code, 302)       
+        self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.startswith('/login/'))
-    
+
     def test_create_task_page_without_login(self):
         response = self.client.get(reverse('tasks:create_task'))
-        self.assertEqual(response.status_code, 302)       
+        self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.startswith('/login/'))
-    
+
     def test_update_task_page_without_login(self):
-        response = self.client.get(reverse('tasks:update_task', kwargs={'pk': 1 }))
-        self.assertEqual(response.status_code, 302)       
+        response = self.client.get(reverse('tasks:update_task', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.startswith('/login/'))
 
     def test_delete_task_page_without_login(self):
-        response = self.client.get(reverse('tasks:delete_task', kwargs={'pk': 1 }))
-        self.assertEqual(response.status_code, 302)       
+        response = self.client.get(reverse('tasks:delete_task', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.startswith('/login/'))
 
     def test_show_task_page_without_login(self):
-        response = self.client.get(reverse('tasks:show_task', kwargs={'pk': 1 }))
-        self.assertEqual(response.status_code, 302)       
+        response = self.client.get(reverse('tasks:show_task', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 302)
         self.assertTrue(response.url.startswith('/login/'))
-
 
 
 class TaskTest(TestCase):
@@ -44,11 +43,11 @@ class TaskTest(TestCase):
     user is authorized
     """
     fixtures = [
-        'tasks.json', 
+        'tasks.json',
         'users.json',
         'statuses.json',
         'labels.json'
-        ]
+    ]
 
     def setUp(self):
         self.user_author = CustomUser.objects.get(pk=1)
@@ -59,19 +58,19 @@ class TaskTest(TestCase):
         self.status = Status.objects.get(pk=1)
         self.label1 = Label.objects.get(pk=1)
         self.label2 = Label.objects.get(pk=2)
-        
+
         self.new_data = {
-            "name": "Drink water", 
-            "description": "", 
-            "status": self.status.pk, 
+            "name": "Drink water",
+            "description": "",
+            "status": self.status.pk,
             "executor": self.user_executor.pk,
             "labels": [self.label1.pk]
         }
 
         self.update_data = {
-            "name": "Update task and test it", 
-            "description": "test text", 
-            "status": self.status.pk, 
+            "name": "Update task and test it",
+            "description": "test text",
+            "status": self.status.pk,
             "executor": self.user_executor.pk,
             "labels": [self.label2.pk]
         }
@@ -95,7 +94,7 @@ class TaskTest(TestCase):
 
     def test_task_page(self):
         task = Task.objects.last()
-        response = self.client.get(reverse('tasks:show_task', kwargs={'pk': task.pk }))
+        response = self.client.get(reverse('tasks:show_task', kwargs={'pk': task.pk}))
         self.assertEqual(response.status_code, 200)
         task_page_data = response.context['task']
         self.assertEqual(task.name, task_page_data.name)
@@ -116,14 +115,18 @@ class TaskTest(TestCase):
         self.assertTask(new_task, self.new_data)
         label_data = Label.objects.get(pk=self.new_data['labels'][0])
         self.assertContains(response, label_data)
- 
+
     def test_update_task(self):
         task = Task.objects.last()
         # GET page
-        response = self.client.get(reverse('tasks:update_task', kwargs={'pk': task.pk }))
+        response = self.client.get(reverse('tasks:update_task', kwargs={'pk': task.pk}))
         self.assertEqual(response.status_code, 200)
         # Update task
-        response = self.client.post(reverse('tasks:update_task', kwargs={'pk': task.pk }), self.update_data, follow=True)
+        response = self.client.post(
+            reverse('tasks:update_task', kwargs={'pk': task.pk}),
+            self.update_data,
+            follow=True
+        )
         self.assertRedirects(response, reverse('tasks:tasks'))
         updated_task = Task.objects.last()
         self.assertTask(updated_task, self.update_data)
@@ -146,7 +149,7 @@ class TaskTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_filter_task(self):
-        query_string = f'/tasks/?status=2&executor=2&label='
+        query_string = '/tasks/?status=2&executor=2&label='
         response = self.client.get(query_string)
         self.assertEqual(response.status_code, 200)
 
@@ -160,7 +163,7 @@ class TaskTest(TestCase):
     def test_filter_own_task(self):
         user = CustomUser.objects.get(pk=4)
         self.client.force_login(user)
-        query_string = f'/tasks/?status=&executor=&label=&self_tasks=on'
+        query_string = '/tasks/?status=&executor=&label=&self_tasks=on'
         response = self.client.get(query_string)
         self.assertEqual(response.status_code, 200)
 

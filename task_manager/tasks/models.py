@@ -23,10 +23,10 @@ class Task(models.Model):
         related_name='executor'
     )
     labels = models.ManyToManyField(
-        Label, 
+        Label,
         through='TaskLabelRelationModel',
         through_fields=('task', 'label'),
-        blank=True, 
+        blank=True,
         default='')
     created_at = models.DateTimeField(auto_now_add=True)
 

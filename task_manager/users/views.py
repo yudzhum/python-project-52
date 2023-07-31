@@ -88,14 +88,14 @@ class DeleteUser(CustomLoginRequiredMixin,
             self.object.delete()
         except ProtectedError:
             messages.add_message(
-            self.request,
-            messages.ERROR,
-            self.deletion_denied_message
-        )
+                self.request,
+                messages.ERROR,
+                self.deletion_denied_message
+            )
         else:
             messages.add_message(
-            self.request,
-            messages.SUCCESS,
-            self.success_message
-        )
+                self.request,
+                messages.SUCCESS,
+                self.success_message
+            )
         return HttpResponseRedirect(success_url)

@@ -20,8 +20,8 @@ class ShowLabels(CustomLoginRequiredMixin, ListView):
 
 
 class CreateLabel(CustomLoginRequiredMixin,
-                   SuccessMessageMixin,
-                   CreateView):
+                  SuccessMessageMixin,
+                  CreateView):
     """Create new status"""
     model = Label
     template_name = 'form.html'
@@ -35,8 +35,8 @@ class CreateLabel(CustomLoginRequiredMixin,
 
 
 class UpdateLabel(CustomLoginRequiredMixin,
-                   SuccessMessageMixin,
-                   UpdateView):
+                  SuccessMessageMixin,
+                  UpdateView):
     """Update status"""
     model = Label
     template_name = 'form.html'
@@ -50,7 +50,7 @@ class UpdateLabel(CustomLoginRequiredMixin,
 
 
 class DeleteLabel(CustomLoginRequiredMixin,
-                   DeleteView):
+                  DeleteView):
     """Delete status"""
     model = Label
     template_name = 'delete_confirmation_form.html'
@@ -68,14 +68,14 @@ class DeleteLabel(CustomLoginRequiredMixin,
             self.object.delete()
         except ProtectedError:
             messages.add_message(
-            self.request,
-            messages.ERROR,
-            self.deletion_denied_message
-        )
+                self.request,
+                messages.ERROR,
+                self.deletion_denied_message
+            )
         else:
             messages.add_message(
-            self.request,
-            messages.SUCCESS,
-            self.success_message
-        )
+                self.request,
+                messages.SUCCESS,
+                self.success_message
+            )
         return HttpResponseRedirect(success_url)
