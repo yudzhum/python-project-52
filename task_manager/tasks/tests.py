@@ -130,7 +130,6 @@ class TaskTest(TestCase):
         label_data = Label.objects.get(pk=self.update_data['labels'][0])
         self.assertContains(response, label_data)
 
-
     def test_user_delete_own_task(self):
         # GET page
         response = self.client.get(reverse('tasks:delete_task', kwargs={'pk': 1}))
@@ -145,3 +144,29 @@ class TaskTest(TestCase):
         # Attempt to GET delete task page of other author
         response = self.client.get(reverse('tasks:delete_task', kwargs={'pk': 2}))
         self.assertEqual(response.status_code, 302)
+
+    def test_filter_task(self):
+        query_string = f'/tasks/?status=2&executor=2&label='
+        response = self.client.get(query_string)
+        self.assertEqual(response.status_code, 200)
+
+        tasks = Task.objects.filter(status=2).filter(executor=2)
+        self.assertQuerysetEqual(
+            response.context['taskslist'],
+            tasks,
+            ordered=False
+        )
+
+    def test_filter_own_task(self):
+        user = CustomUser.objects.get(pk=4)
+        self.client.force_login(user)
+        query_string = f'/tasks/?status=&executor=&label=&self_tasks=on'
+        response = self.client.get(query_string)
+        self.assertEqual(response.status_code, 200)
+
+        tasks = Task.objects.filter(author=user.pk)
+        self.assertQuerysetEqual(
+            response.context['taskslist'],
+            tasks,
+            ordered=False
+        )
