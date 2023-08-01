@@ -66,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware'
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -151,9 +152,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# I add this part for render deployment
-# Following settings only make sense on production and may break development environments.
-# if not DEBUG:
+
 # Tell Django to copy statics to the `staticfiles` directory
 # in your application directory on Render.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -162,14 +161,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # and creating unique names for each version so they can safely be cached forever.
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# STORAGES = {
-#     # ...
-#     "staticfiles": {
-#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-#     },
-# }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+ROLLBAR = {
+    'access_token': os.getenv('POST_SERVER_ITEM_ACCESS_TOKEN'),
+    'environment': 'development' if DEBUG else 'production',
+    'branch': 'master',
+    'root': BASE_DIR,
+}
