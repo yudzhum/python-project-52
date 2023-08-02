@@ -264,7 +264,7 @@ msgstr "Пользователь успешно зарегистрирован"
 
 #: task_manager/users/views.py:32 task_manager/users/views.py:33
 msgid "Registration"
-msgstr "Регистрация"
+msgstr "Зарегистрировать"
 
 #: task_manager/users/views.py:46 task_manager/users/views.py:71
 msgid "You are not authorized! Please, log in."
