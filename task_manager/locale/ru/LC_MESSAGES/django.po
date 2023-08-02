@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-30 20:07+0300\n"
+"POT-Creation-Date: 2023-08-02 21:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -217,11 +217,10 @@ msgid "Users"
 msgstr "Пользователи"
 
 #: task_manager/templates/base.html:39
-msgid "Log out"
+msgid "Logout"
 msgstr "Выход"
 
 #: task_manager/templates/base.html:45 task_manager/views.py:21
-#: task_manager/views.py:22
 msgid "Login"
 msgstr "Вход"
 
@@ -239,13 +238,19 @@ msgstr "Вы уверены, что хотите удалить "
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
+#: task_manager/users/forms.py:17
+msgid "Password"
+msgstr "Пароль"
+
+#: task_manager/users/forms.py:19
+msgid "Password confirmation"
+msgstr "Подтверждение пароля"
+
 #: task_manager/users/templates/users/delete_user.html:6
 msgid "Delete user"
 msgstr "Удаление пользователя"
 
 #: task_manager/users/templates/users/userlist.html:11
-#, fuzzy
-#| msgid "Users"
 msgid "Username"
 msgstr "Имя пользователя"
 
@@ -267,7 +272,7 @@ msgstr "Вы не авторизованы! Пожалуйста, выполни
 
 #: task_manager/users/views.py:53
 msgid "You profile been updated!"
-msgstr "Пользователь успешно обновлен"
+msgstr "Пользователь успешно изменен"
 
 #: task_manager/users/views.py:55
 msgid "User update"
@@ -289,9 +294,16 @@ msgstr "Невозможно удалить пользователя, потом
 msgid "You have successfully logged in"
 msgstr "Вы залогинены"
 
+#: task_manager/views.py:22
+msgid "Log in"
+msgstr "Войти"
+
 #: task_manager/views.py:37
 msgid "You have successfully logged out!"
 msgstr "Вы разлогинены"
+
+#~ msgid "Log out"
+#~ msgstr "Выход"
 
 #, fuzzy
 #~| msgid "Labels"

@@ -19,7 +19,7 @@ class LoginUserView(SuccessMessageMixin, LoginView):
     success_message = _('You have successfully logged in')
     extra_context = {
         'title': _('Login'),
-        'button_value': _('Login')
+        'button_value': _('Log in')
     }
 
     def get_success_url(self):
@@ -33,7 +33,7 @@ class LogoutUserView(LogoutView):
         success_url = reverse_lazy('home')
         messages.add_message(
             self.request,
-            messages.SUCCESS,
+            messages.INFO,
             _('You have successfully logged out!')
         )
         return success_url

@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 from task_manager.users.models import CustomUser
 
@@ -13,9 +14,9 @@ class RegistrationForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
+    password1 = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
     password2 = forms.CharField(
-        label="Password confirmation", widget=forms.PasswordInput
+        label=_("Password confirmation"), widget=forms.PasswordInput
     )
 
     class Meta:
