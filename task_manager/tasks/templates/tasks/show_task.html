@@ -10,7 +10,7 @@
   <h2>{{ task }}</h2>
 </div>
 <div class="card-body bg-light">
-  <p>{{ task.pk }}</p>
+  <p>{{ task.description }}</p>
   <hr>
   <div class="container">
     <div class="row p-1">
@@ -19,7 +19,7 @@
     </div>
     <div class="row p-1">
       <div class="col">{% translate 'Executor' %}</div>
-      <div class="col">{% firstof task.executor " " %}</div>
+      <div class="col">{{ task.executor }}</div>
     </div>
     <div class="row p-1">
       <div class="col">{% translate 'Status' %}</div>
