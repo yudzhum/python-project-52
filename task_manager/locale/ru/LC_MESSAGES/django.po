@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-02 21:28+0300\n"
+"POT-Creation-Date: 2023-08-03 01:23+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgid "Name"
 msgstr "Имя"
 
 #: task_manager/labels/templates/labels/labels_list.html:6
-#: task_manager/tasks/filters.py:14 task_manager/tasks/forms.py:16
+#: task_manager/tasks/forms.py:16
 #: task_manager/tasks/templates/tasks/show_task.html:34
 #: task_manager/templates/base.html:33
 msgid "Labels"
@@ -151,6 +151,10 @@ msgstr "Статус"
 #: task_manager/tasks/templates/tasks/tasks_list.html:26
 msgid "Executor"
 msgstr "Исполнитель"
+
+#: task_manager/tasks/filters.py:14
+msgid "Label"
+msgstr "Метка"
 
 #: task_manager/tasks/filters.py:18
 msgid "Own tasks only"
@@ -308,11 +312,6 @@ msgstr "Вы разлогинены"
 
 #~ msgid "Log out"
 #~ msgstr "Выход"
-
-#, fuzzy
-#~| msgid "Labels"
-#~ msgid "Label"
-#~ msgstr "Метки"
 
 #~ msgid "Marks"
 #~ msgstr "Метки"
