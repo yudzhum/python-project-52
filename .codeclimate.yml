@@ -1,0 +1,7 @@
+exclude_patterns:
+- config/
+- db/
+- dist/
+- features/
+- script/
+- tests.py
