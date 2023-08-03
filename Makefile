@@ -16,6 +16,11 @@ lint:
 test:
 		poetry run python3 manage.py test
 
+test-coverage:
+		poetry run coverage run manage.py test
+		poetry run coverage html
+		poetry run coverage report
+
 prep_translations:
 		django-admin makemessages --ignore=".env" -l ru
 
