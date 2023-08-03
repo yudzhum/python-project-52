@@ -31,10 +31,11 @@ Task Manager is a task management system similar to http://www.redmine.org/. It 
  `make install`
 3. Create a new PostgreSQL database
 `createdb dbname`
-4. Add database credentials to go in your project’s settings.py
-5. Generate a new secret key
-6. Make migrations
+4. Create `.env` file for enviromental variables storage
+5. Add database credentials to go in your project’s settings.py
+6. Generate a new secret key
+7. Make migrations
    `make migrate`
-7. Create a new superuser (not strict order)
-8. Start the development server
+8. Create a new superuser (not strict order)
+9. Start the development server
  `make start`
