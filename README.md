@@ -4,6 +4,9 @@
 ![Check Status](https://github.com/yudzhum/python-project-52/actions/workflows/check.yml/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f7ddee15a254b95638d7/maintainability)](https://codeclimate.com/github/yudzhum/python-project-52/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f7ddee15a254b95638d7/test_coverage)](https://codeclimate.com/github/yudzhum/python-project-52/test_coverage)
+
+Task Manager is a task management system similar to http://www.redmine.org/. It allows you to set tasks, assign performers and change their statuses. To work with the system, registration and authentication are required.
+
 ### Demonstration on Render
 [https://task-manager-1pm0.onrender.com](https://task-manager-1pm0.onrender.com)
 
