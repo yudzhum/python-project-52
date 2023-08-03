@@ -1,6 +1,37 @@
+# Task manager
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/yudzhum/python-project-52/workflows/hexlet-check/badge.svg)](https://github.com/yudzhum/python-project-52/actions)
 ![Check Status](https://github.com/yudzhum/python-project-52/actions/workflows/check.yml/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f7ddee15a254b95638d7/maintainability)](https://codeclimate.com/github/yudzhum/python-project-52/maintainability)
-### Demonstration 
+[![Test Coverage](https://api.codeclimate.com/v1/badges/f7ddee15a254b95638d7/test_coverage)](https://codeclimate.com/github/yudzhum/python-project-52/test_coverage)
+### Demonstration on Render
 [https://task-manager-1pm0.onrender.com](https://task-manager-1pm0.onrender.com)
+
+## Tech stack
+- python3
+- python-dotenv 
+- django 4
+- dj-database-url 
+- psycopg2-binary 
+- gunicorn 
+- whitenoise
+- django-bootstrap5
+- django-filter
+- rollbar
+- poetry
+
+## Set up
+ 1. Clone repository:\
+ `git clone git@github.com:yudzhum/python-project-83.git`\
+ `cd python-project-52`
+2. Create enviroment, insall dependencies:\
+ `make install`
+3. Create a new PostgreSQL database
+`createdb dbname`
+4. Add database credentials to go in your project’s settings.py
+5. Generate a new secret key
+6. Make migrations
+   `make migrate`
+7. Create a new superuser (not strict order)
+8. Start the development server
+ `make start`
