@@ -18,8 +18,7 @@ test:
 
 test-coverage:
 		poetry run coverage run manage.py test task_manager
-		poetry run coverage html
-		poetry run coverage report
+		poetry run coverage lcov
 
 prep_translations:
 		django-admin makemessages --ignore=".env" -l ru
