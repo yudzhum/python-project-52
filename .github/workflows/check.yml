@@ -34,5 +34,5 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         with:
           coverageCommand: make test-coverage
-          coverageLocations: ${{github.workspace}}/coverage.xml
+          coverageLocations: ${{github.workspace}}/*.lcov:lcov
           debug: true
