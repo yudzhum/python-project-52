@@ -1,5 +1,6 @@
 exclude_patterns:
-- "tests.py"
+- "**/tests.py"
+- **/tests.py
 - config/
 - db/
 - dist/
