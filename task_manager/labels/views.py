@@ -12,7 +12,7 @@ from task_manager.users.mixins import CustomLoginRequiredMixin
 
 
 class ShowLabels(CustomLoginRequiredMixin, ListView):
-    """Show all statuses"""
+    """Show all labels"""
     model = Label
     template_name = 'labels/labels_list.html'
     context_object_name = 'labels'
@@ -22,7 +22,7 @@ class ShowLabels(CustomLoginRequiredMixin, ListView):
 class CreateLabel(CustomLoginRequiredMixin,
                   SuccessMessageMixin,
                   CreateView):
-    """Create new status"""
+    """Create new label"""
     model = Label
     template_name = 'form.html'
     form_class = LabelForm
@@ -37,7 +37,7 @@ class CreateLabel(CustomLoginRequiredMixin,
 class UpdateLabel(CustomLoginRequiredMixin,
                   SuccessMessageMixin,
                   UpdateView):
-    """Update status"""
+    """Update label"""
     model = Label
     template_name = 'form.html'
     form_class = LabelForm
@@ -51,7 +51,7 @@ class UpdateLabel(CustomLoginRequiredMixin,
 
 class DeleteLabel(CustomLoginRequiredMixin,
                   DeleteView):
-    """Delete status"""
+    """Delete label"""
     model = Label
     template_name = 'delete_confirmation_form.html'
     success_url = reverse_lazy('labels:labels')

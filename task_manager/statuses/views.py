@@ -63,7 +63,7 @@ class DeleteStatus(CustomLoginRequiredMixin,
 
     deletion_denied_message = _('Cant delete status because it is in use')
 
-    # Can't delete label because it's in use
+    # Can't delete status because it's in use
     def form_valid(self, form):
         success_url = self.get_success_url()
         try:

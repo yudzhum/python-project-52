@@ -69,7 +69,7 @@ class DeleteTask(CustomLoginRequiredMixin,
                  CustomUserPassesTestMixin,
                  SuccessMessageMixin,
                  DeleteView):
-    """Delete status"""
+    """Delete task"""
     model = Task
     template_name = 'delete_confirmation_form.html'
     success_url = reverse_lazy('tasks:tasks')
