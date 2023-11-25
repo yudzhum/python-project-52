@@ -25,7 +25,7 @@ Task Manager is a task management system similar to http://www.redmine.org/. It 
 
 ## Set up
  1. Clone repository:\
- `git clone git@github.com:yudzhum/python-project-52.git`\
+ `git clone git@github.com:yudzhum/task-manager.git\
  `cd python-project-52`
 2. Create enviroment, insall dependencies:\
  `make install`
