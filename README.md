@@ -25,7 +25,7 @@ Task Manager is a task management system similar to http://www.redmine.org/. It 
 
 ## Set up
  1. Clone repository:\
- `git clone git@github.com:yudzhum/task-manager.git`
+ `git clone git@github.com:yudzhum/task-manager.git` \
  `cd task-manager`
 2. Create enviroment, insall dependencies:\
  `make install`
